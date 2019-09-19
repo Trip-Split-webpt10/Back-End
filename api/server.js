@@ -9,4 +9,8 @@ server.use(helmet());
 server.use(cors());
 server.use(express.json());
 
+server.get('/', (req, res) => {
+    res.send("It must be working!!")
+})
+
 module.exports = server;
