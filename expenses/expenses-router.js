@@ -1,16 +1,16 @@
 const router = require('express').Router();
 
-const Trips = require('./trips-model')
+const Expenses = require('./expenses-model');
 
 router.get('/', (req, res) => {
-    Trips.findTrips()
-        .then(trips => {
-            res.send(trips)
+    Expenses.findExpenses()
+        .then(expenses => {
+            res.send(expenses)
         })
         .catch(err => {
             console.log(err)
             res.status(500).json({
-                message: "Unable to get list of trips"
+                message: "Unable to get list of expenses"
             })
         })
 })
@@ -18,35 +18,22 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
     const { id } = req.params
 
-    Trips.findTripById(id)
-        .then(trip => {
-            res.send(trip)
+    Expenses.findExpensesById(id)
+        .then(expense => {
+            res.send(expense)
         })
         .catch(err => {
             console.log(err)
             res.status(500).json({
-                message: "Unable to get trip"
+                message: "Unable to get expense"
             })
-        })
-})
-
-router.get('/:id/expenses', (req, res) => {
-    const { id } = req.params
-
-    Trips.findTripExpenses(id)
-        .then(expenses => {
-            res.send(expenses)
-        })
-        .catch(err => {
-            console.log(err)
-            res.status(500).json(err)
         })
 })
 
 router.post('/', (req, res) => {
     const data = req.body
 
-    Trips.addTrip(data)
+    Expenses.addExpenses(data)
         .then(saved => {
             res.status(201).json(saved)
         })
@@ -55,4 +42,5 @@ router.post('/', (req, res) => {
             res.status(500).json(err)
         })
 })
+
 module.exports = router;

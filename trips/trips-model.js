@@ -3,7 +3,7 @@ const db = require('../data/db-config');
 module.exports = {
     findTrips,
     findTripById,
-    findExpenses,
+    findTripExpenses,
     addTrip,
     remove,
     update
@@ -21,7 +21,7 @@ function addTrip(data) {
     return db('trips').insert(data)
 }
 
-function findExpenses(trip_id) {
+function findTripExpenses(trip_id) {
     return db('expenses as e')
         .join('trips as t', 't.id', 'e.trip_id')
         .select('e.id', 't.destination', 'e.name', 'e.price')
