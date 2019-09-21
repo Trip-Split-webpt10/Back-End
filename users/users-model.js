@@ -13,11 +13,16 @@ function findBy(filter) {
 }
 
 function findById(id) {
-    return db('users').where({ id }).first()
+    return db('users')
+        .where({ id })
+        .select('id', 'username', 'name').first()
 }
 
 function add(user) {
     return db('users').insert(user)
+        .then(newUser => {
+            return findById(newUser[0])
+        })
 }
 
 function update(changes, id) {
