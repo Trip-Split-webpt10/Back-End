@@ -19,9 +19,15 @@ router.get('/:id', (req, res) => {
     const { id } = req.params
 
     Trips.findTripById(id)
-        .then(trip => {
-            res.send(trip)
-        })
+    .then(trip => {
+        Trips.findTripExpenses(id)
+            .then(expenses => {
+                Trips.findTripUsers(id)
+                    .then(users => {
+                        res.send({...trip, expenses: expenses, users: users})
+                    })
+            })
+    })
         .catch(err => {
             console.log(err)
             res.status(500).json({
