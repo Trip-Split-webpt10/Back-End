@@ -20,7 +20,25 @@ router.get('/:id', (req, res) => {
 
     Expenses.findExpensesById(id)
         .then(expense => {
-            res.send(expense)
+            Expenses.findExpensesUsers(id)
+                .then(users => {
+                    res.send({expense, users: users})
+                })
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({
+                message: "Unable to get expense"
+            })
+        })
+})
+
+router.get('/:id/users', (req, res) => {
+    const { id } = req.params
+
+    Expenses.findExpensesUsers(id)
+        .then(users => {
+            res.send(users)
         })
         .catch(err => {
             console.log(err)
@@ -36,6 +54,24 @@ router.post('/', (req, res) => {
     Expenses.addExpenses(data)
         .then(saved => {
             res.status(201).json(saved)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json(err)
+        })
+})
+
+router.post('/:id/users', (req, res) => {
+    const { id } = req.params;
+    const data = req.body;
+    const add = {data, expense_id: id}
+
+    Expenses.addUserExpense(add)
+        .then(expense => {
+            Expenses.findExpensesById(id)
+                .then(newExpense => {
+                    res.status(201).json(newExpense)
+                })
         })
         .catch(err => {
             console.log(err)
