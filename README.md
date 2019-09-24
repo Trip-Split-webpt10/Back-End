@@ -14,6 +14,8 @@ https://trip-split-api.herokuapp.com/api
 | Method | URL | Description |
 | -- | -- | -- |
 | Users | -- | -- |
+| GET | /users/:id | **:id = user id.** Returns username and name of the user |
+| -- | -- | -- |
 | POST | /users/register | Adds user creds to DB. Returns id, username and name of user |
 | POST | /users/login | Allows user access. Returns message "You have successfully logged in" |
 | -- | -- | -- |
