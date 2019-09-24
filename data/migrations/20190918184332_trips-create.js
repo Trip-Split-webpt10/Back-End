@@ -16,7 +16,7 @@ exports.up = function(knex) {
     .createTable('expenses', expenses => {
         expenses.increments();
         expenses.string('name').notNullable();
-        expenses.decimal('price');
+        expenses.decimal('price').notNullable();
         expenses.integer('trip_id')
             .notNullable()
             .unsigned()

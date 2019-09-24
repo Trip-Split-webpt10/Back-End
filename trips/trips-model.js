@@ -6,6 +6,7 @@ module.exports = {
     findTripExpenses,
     findTripUsers,
     addTrip,
+    addUser,
     remove,
     update
 }
@@ -35,6 +36,10 @@ function findTripUsers(trip_id) {
         .join('users as s', 's.id', 'u.user_id')
         .select('s.id', 's.name')
         .where({ trip_id })
+}
+
+function addUser(data) {
+    return db('user_trips').insert(data)
 }
 
 function remove(id) {

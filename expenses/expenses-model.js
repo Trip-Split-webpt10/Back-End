@@ -3,7 +3,9 @@ const db = require('../data/db-config');
 module.exports = {
     findExpenses,
     findExpensesById,
-    addExpenses
+    findExpensesUsers,
+    addExpenses,
+    addUserExpense
 }
 
 function findExpenses() {
@@ -19,6 +21,18 @@ function findExpensesById(id) {
         .where({"e.id": id})
 }
 
+function findExpensesUsers(expense_id) {
+    return db('user_expenses as u')
+        .join('expenses as e', 'e.id', 'u.expense_id')
+        .join('users as s', 's.id', 'u.user_id')
+        .select('s.id', 's.name', 'e.name as expense_name', 'u.amount')
+        .where({ expense_id })
+}
+
 function addExpenses(data) {
-    return db('expenses').insert(data)
+    return db('user_expenses').insert(data)
+}
+
+function addUserExpense(data) {
+    return db('user_expenses').insert(data)
 }
