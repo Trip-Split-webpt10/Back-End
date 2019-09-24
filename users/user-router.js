@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
+const generateToken = require('./generateToken')
 
 const Users = require('./users-model');
 
@@ -23,6 +24,21 @@ router.get('/:id', (req, res) => {
         })
 })
 
+router.get('/:id/trips', (req, res) => {
+    const { id } = req.params
+
+    Users.findUserTrips(id) 
+        .then(trips => {
+            res.json(trips)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({
+                message: "Failed to get user trips"
+            })
+        })
+})
+
 router.post('/register', (req, res) => {
     let user = req.body;
     const hash = bcrypt.hashSync(user.password, 10);
@@ -30,7 +46,8 @@ router.post('/register', (req, res) => {
 
     Users.add(user)
         .then(saved => {
-            res.status(201).json(saved)
+            const token = generateToken(saved)
+            res.status(201).json(saved, token)
         })
         .catch(err => {
             console.log(err)
@@ -45,8 +62,10 @@ router.post('/login', (req, res) => {
         .first()
         .then(user => {
             if (user && bcrypt.compareSync(password, user.password)) {
+                const token = generateToken(user)
                 res.status(200).json({
-                    message: 'You have successfully logged in'
+                    message: 'You have successfully logged in',
+                    token
                 })
             } else {
                 res.status(401).json({

@@ -6,6 +6,7 @@ require('dotenv').config();
 const usersRouter = require('../users/user-router');
 const tripsRouter = require('../trips/trips-router');
 const expenseRouter = require('../expenses/expenses-router');
+const restricted = require('../users/authenticate');
 
 const server = express();
 
