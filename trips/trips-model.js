@@ -21,6 +21,9 @@ function findTripById(id) {
 
 function addTrip(data) {
     return db('trips').insert(data)
+        .then(newTrip => {
+            return findTripById(newTrip[0])
+        })
 }
 
 function findTripExpenses(trip_id) {
