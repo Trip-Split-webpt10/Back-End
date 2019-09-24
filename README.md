@@ -15,6 +15,7 @@ https://trip-split-api.herokuapp.com/api
 | -- | -- | -- |
 | Users | -- | -- |
 | GET | /users/:id | **:id = user id.** Returns username and name of the user |
+| GET | /users/:id/trips | **:id = user id.** Returns trips tied to the user |
 | -- | -- | -- |
 | POST | /users/register | Adds user creds to DB. Returns id, username and name of user |
 | POST | /users/login | Allows user access. Returns message "You have successfully logged in" |
@@ -25,16 +26,16 @@ https://trip-split-api.herokuapp.com/api
 | GET | /trips/:id/expenses | **:id = trip id.** Returns all expenses for a trip. id, desitination, name, price |
 | GET | /trips/:id/users | **:id = trip id.** Returns all users for a trip. id, name |
 | -- | -- | -- |
-| POST | /trips | Adds trip to DB. Returns trip id, destination, complete, start date and end date. Requires destination|
-| POST | /trips/:id/users | Adds user to trip. Returns trip user list. Requires user_id|
+| POST | /trips | Adds trip to DB. Returns trip id, destination, complete, start_date and end_date. Requires destination|
+| POST | /trips/:id/users | **:id = trip id.** Adds user to trip. Returns trip user list. Requires user_id|
 | -- | -- | -- |
 | Expenses | -- | -- |
 | GET | /expenses | Returns an array of all expenses on DB. Returns id, name, price, trip_id, destination |
 | GET | /expenses/:id | **:id = expense id.** Returns all expense information (see below). |
-| GET | /expenses/:id/users | Returns all users for single expense. |
+| GET | /expenses/:id/users | **:id = expense id.** Returns all users for single expense. |
 | -- | -- | -- |
 | POST | /expenses | Adds expense to DB. Returns expense id, name, price, trip_id, destination. Requires name, trip_id, price|
-| POST | /expenses/:id | Adds user to expense. Returns expense with list of users. requires user_id|
+| POST | /expenses/:id | **:id = expense id.** Adds user to expense. Returns expense with list of users. requires user_id|
 
 ### Single Trip object
 ```js
