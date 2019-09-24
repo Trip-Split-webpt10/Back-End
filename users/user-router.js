@@ -24,6 +24,21 @@ router.get('/:id', (req, res) => {
         })
 })
 
+router.get('/:id/trips', (req, res) => {
+    const { id } = req.params
+
+    Users.findUserTrips(id) 
+        .then(trips => {
+            res.json(trips)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({
+                message: "Failed to get user trips"
+            })
+        })
+})
+
 router.post('/register', (req, res) => {
     let user = req.body;
     const hash = bcrypt.hashSync(user.password, 10);
