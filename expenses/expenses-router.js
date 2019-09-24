@@ -66,18 +66,18 @@ router.post('/', (req, res) => {
 
 router.post('/:id/users', (req, res) => {
     const { id } = req.params;
-    const data = req.body;
-    const add = {data, expense_id: id}
+    const { amount, user_id } = req.body;
+    const add = {amount:amount, user_id: user_id, expense_id: id}
 
     Expenses.addUserExpense(add)
         .then(expense => {
-            Expenses.findExpensesById(id)
+            Expenses.findExpensesUsers(id)
                 .then(newExpense => {
                     res.status(201).json(newExpense)
                 })
         })
         .catch(err => {
-            console.log(err)
+            console.log(err, add)
             res.status(500).json(err)
         })
 })

@@ -78,8 +78,8 @@ router.get('/:id/users', (req, res) => {
 
 router.post('/:id/users', (req, res) => {
     const { id } = req.params;
-    const data = req.body;
-    const add = {data, trip_id: id}
+    const { user_id } = req.body;
+    const add = {user_id: user_id, trip_id: id}
 
     Trips.addUser(add)
         .then(user => {

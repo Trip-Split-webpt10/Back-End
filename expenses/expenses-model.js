@@ -34,5 +34,5 @@ function addExpenses(data) {
 }
 
 function addUserExpense(data) {
-    return db('expenses').insert(data)
+    return db('user_expenses').insert(data)
 }
