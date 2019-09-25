@@ -17,8 +17,8 @@ https://trip-split-api.herokuapp.com/api
 | GET | /users/:id | **:id = user id.** Returns username and name of the user |
 | GET | /users/:id/trips | **:id = user id.** Returns trips tied to the user |
 | -- | -- | -- |
-| POST | /users/register | Adds user creds to DB. Returns id, username and name of user |
-| POST | /users/login | Allows user access. Returns message "You have successfully logged in" |
+| POST | /users/register | Adds user creds to DB. Returns id, username, name of user, and JWT |
+| POST | /users/login | Allows user access. Returns the user info, success message, and JWT |
 | -- | -- | -- |
 | Trips | -- | -- |
 | GET | /trips | Returns an array of all trips on DB. Returns id, destination, complete, start_date, end_date |
@@ -40,12 +40,14 @@ https://trip-split-api.herokuapp.com/api
 ### Single Trip object
 ```js
 {
+  "trip": {
     "id": 1,
     "destination": "Hawaii",
-    "complete": 0,
+    "complete": false,
     "start_date": "2019-12-10",
-    "end_date": "2019-12-17",
-    "expenses": [
+    "end_date": "2019-12-17"
+  },
+  "expenses": [
     {
       "id": 1,
       "destination": "Hawaii",
@@ -68,7 +70,8 @@ https://trip-split-api.herokuapp.com/api
       "id": 2,
       "name": "User Test"
     }
-  ]
+  ],
+  "totalUsers": 2
 }
 ```
 
