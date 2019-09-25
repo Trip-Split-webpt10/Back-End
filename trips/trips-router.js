@@ -76,6 +76,21 @@ router.get('/:id/users', (req, res) => {
         })
 })
 
+router.get('/:tripid/users/:userid', (req, res) => {
+    const trip_id = req.params.tripid
+    const user_id = req.body.userid
+    console.log(req.params.tripid, req.params.userid)
+
+    Trips.findUserExpenses(trip_id, user_id)
+        .then(user => {
+            res.send(user)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json(err)
+        })
+})
+
 router.post('/:id/users', (req, res) => {
     const { id } = req.params;
     const { user_id } = req.body;
