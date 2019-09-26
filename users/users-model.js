@@ -1,12 +1,18 @@
 const db = require('../data/db-config');
 
 module.exports = {
+    findUsers,
     findBy,
     findById,
     findUserTrips,
     add,
     update,
     remove
+}
+
+function findUsers() {
+    return db('users')
+        .select('id', 'username', 'name')
 }
 
 function findBy(filter) {

@@ -4,6 +4,18 @@ const generateToken = require('./generateToken')
 
 const Users = require('./users-model');
 
+router.get('/', (req, res) => {
+    Users.findUsers()
+        .then(users => {
+            res.send(users)
+        })
+        .catch(err => {
+            res.status(500).json({
+                message: 'Failed to get users'
+            })
+        })
+})
+
 router.get('/:id', (req, res) => {
     const { id } = req.params;
 
