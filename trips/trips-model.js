@@ -42,12 +42,12 @@ function findTripUsers(trip_id) {
         .where({ trip_id })
 }
 
-function findUserExpenses(trip_id, user_id) {
-    return db('user_trips as u')
-        .join('users as s', 's.id', 'u.user_id')
-        .join('user_expenses as x', 'x.user_id', 'u.user_id')
-        .select('s.id', 's.name', 'x.amount')
-        .where({ trip_id }).andWhere('u.user_id as user_id', user_id)
+function findUserExpenses(trip_id) {
+    return db('expenses as e')
+        .join('users as s', 's.id', 'x.user_id')
+        .join('user_expenses as x', 'x.expense_id', 'e.id')
+        .select('x.user_id', 's.name', 'x.expense_id', 'e.name as expense_name', 'x.amount', 'e.trip_id')
+        .where({ trip_id })
 }
 
 function addUser(data) {

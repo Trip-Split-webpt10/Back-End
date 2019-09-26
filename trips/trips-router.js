@@ -1,6 +1,7 @@
 const router = require('express').Router();
 
-const Trips = require('./trips-model')
+const Trips = require('./trips-model');
+const Users = require('../users/users-model')
 
 router.get('/', (req, res) => {
     Trips.findTrips()
@@ -76,12 +77,10 @@ router.get('/:id/users', (req, res) => {
         })
 })
 
-router.get('/:tripid/users/:userid', (req, res) => {
-    const trip_id = req.params.tripid
-    const user_id = req.body.userid
-    console.log(req.params.tripid, req.params.userid)
+router.get('/:id/users/expenses', (req, res) => {
+    const { id } = req.params
 
-    Trips.findUserExpenses(trip_id, user_id)
+    Trips.findUserExpenses(id)
         .then(user => {
             res.send(user)
         })
@@ -93,16 +92,21 @@ router.get('/:tripid/users/:userid', (req, res) => {
 
 router.post('/:id/users', (req, res) => {
     const { id } = req.params;
-    const { user_id } = req.body;
-    const add = {user_id: user_id, trip_id: id}
+    const { username } = req.body;
 
-    Trips.addUser(add)
-        .then(user => {
-            Trips.findTripUsers(id)
-                .then(newUsers => {
-                    res.status(201).json(newUsers)
-                })
-        })
+    Users.findBy({ username })
+        .first()
+            .then(user => {
+                const user_id = user.id
+                const add = {user_id: user_id, trip_id: id}
+                Trips.addUser(add)
+                    .then(newUser => {
+                        Trips.findTripUsers(id)
+                            .then(newList => {
+                                res.status(201).json(newList)
+                            })
+                    })
+            })
         .catch(err => {
             console.log(err)
             res.status(500).json(err)
