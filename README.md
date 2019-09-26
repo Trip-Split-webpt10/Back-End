@@ -14,6 +14,7 @@ https://trip-split-api.herokuapp.com/api
 | Method | URL | Description |
 | -- | -- | -- |
 | Users | -- | -- |
+| GET | /users | Returns an array of all users on DB. Returns id, username, and name |
 | GET | /users/:id | **:id = user id.** Returns username and name of the user |
 | GET | /users/:id/trips | **:id = user id.** Returns trips tied to the user |
 | -- | -- | -- |
