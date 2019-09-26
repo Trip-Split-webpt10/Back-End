@@ -28,7 +28,7 @@ https://trip-split-api.herokuapp.com/api
 | GET | /trips/:id/users/expenses | **:id = trip id.** Returns an array of objects that show all amounts paid by each user for the trip |
 | -- | -- | -- |
 | POST | /trips | Adds trip to DB. Returns trip id, destination, complete, start_date and end_date. Requires destination|
-| POST | /trips/:id/users | **:id = trip id.** Adds user to trip. Returns trip user list. Requires user_id|
+| POST | /trips/:id/users | **:id = trip id.** Adds user to trip. Returns trip user list. Requires username|
 | -- | -- | -- |
 | Expenses | -- | -- |
 | GET | /expenses | Returns an array of all expenses on DB. Returns id, name, price, trip_id, destination |
