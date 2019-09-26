@@ -31,6 +31,9 @@ function findExpensesUsers(expense_id) {
 
 function addExpenses(data) {
     return db('expenses').insert(data)
+        .then(newExpense => {
+            return findExpensesById(newExpense[0])
+        })
 }
 
 function addUserExpense(data) {

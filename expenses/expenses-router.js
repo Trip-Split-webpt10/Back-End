@@ -53,10 +53,7 @@ router.post('/', (req, res) => {
 
     Expenses.addExpenses(data)
         .then(saved => {
-            Expenses.findExpensesById(id)
-                .then(newExpense => {
-                    res.status(201).json(newExpense)
-                })
+            res.status(201).json(saved)
         })
         .catch(err => {
             console.log(err)
