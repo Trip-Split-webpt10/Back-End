@@ -2,6 +2,7 @@ const router = require('express').Router();
 
 const Expenses = require('./expenses-model');
 
+//Get endpoint for get a list of all expenses. /api/expenses
 router.get('/', (req, res) => {
     Expenses.findExpenses()
         .then(expenses => {
@@ -15,6 +16,7 @@ router.get('/', (req, res) => {
         })
 })
 
+// Get endpoint for getting the data of a single expense. /api/expenses/:id
 router.get('/:id', (req, res) => {
     const { id } = req.params
 
@@ -33,6 +35,7 @@ router.get('/:id', (req, res) => {
         })
 })
 
+//Get endpoint for showing the users tied to an expense. /api/expenses/:id/users
 router.get('/:id/users', (req, res) => {
     const { id } = req.params
 
@@ -48,6 +51,7 @@ router.get('/:id/users', (req, res) => {
         })
 })
 
+// Post endpoint for adding a new expense. /api/expenses
 router.post('/', (req, res) => {
     const data = req.body
 
@@ -61,6 +65,7 @@ router.post('/', (req, res) => {
         })
 })
 
+// Post endpoint for adding a user to an expense. /:id/users
 router.post('/:id/users', (req, res) => {
     const { id } = req.params;
     const { amount, user_id } = req.body;

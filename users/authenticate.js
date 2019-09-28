@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 
+//Authentication middleware to determine if the user has the correct username and password
 module.exports = (req, res, next) => {
     const token = req.headers.authorization;
 

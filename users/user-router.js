@@ -4,6 +4,7 @@ const generateToken = require('./generateToken')
 
 const Users = require('./users-model');
 
+// Get endpoint that shows a list of all users. Does not return the password. /api/users
 router.get('/', (req, res) => {
     Users.findUsers()
         .then(users => {
@@ -16,6 +17,7 @@ router.get('/', (req, res) => {
         })
 })
 
+// Get endpoint that returns the data of a specific user. Does not return the password. /api/users
 router.get('/:id', (req, res) => {
     const { id } = req.params;
 
@@ -36,6 +38,7 @@ router.get('/:id', (req, res) => {
         })
 })
 
+//Get endpoint that shows all trips tied to a specific user. /api/users/:id/trips
 router.get('/:id/trips', (req, res) => {
     const { id } = req.params
 
@@ -51,6 +54,7 @@ router.get('/:id/trips', (req, res) => {
         })
 })
 
+// Post endpoint that adds a new user to the db. /api/users/register
 router.post('/register', (req, res) => {
     let user = req.body;
     const hash = bcrypt.hashSync(user.password, 10);
@@ -58,7 +62,6 @@ router.post('/register', (req, res) => {
 
     Users.add(user)
         .then(saved => {
-            console.log(saved)
             const token = generateToken(saved)
             res.status(201).json({saved, token})
         })
@@ -68,6 +71,7 @@ router.post('/register', (req, res) => {
         })
 })
 
+// Post endpoint for logging a user into the app. /api/user/login
 router.post('/login', (req, res) => {
     let { username, password } = req.body;
 
@@ -94,6 +98,7 @@ router.post('/login', (req, res) => {
         })
 })
 
+// Put endpoint for editing a user. /api/user/:id
 router.put('/:id', (req, res) => {
     const { id } = req.params;
     const changes = req.body;
