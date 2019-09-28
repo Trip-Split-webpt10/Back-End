@@ -8,6 +8,7 @@ describe('the expenses model', () => {
 
     beforeEach(async () => {
         await db('expenses').truncate();
+        await db('trips').truncate();
     })
 
     describe('The add model', () => {
@@ -32,20 +33,22 @@ describe('the expenses model', () => {
         })
     })
 
-    // describe('The get model', () => {
+    describe('The get model', () => {
 
-    //     it('should return an object', async () => {
-    //         const tripData = { destination: "Hawaii"};
-    //         const trip = await Trips.addTrip(tripData);
-    //         const get = await Trips.findTrips()
+        it('should return an object', async () => {
+            const tripData = { destination: "Hawaii"};
+            const trip = await Trips.addTrip(tripData);
+            const expenseData = { name: "Resort Stay", price: 200, trip_id: 1 };
+            const expense = await Expenses.addExpenses(expenseData);
+            const get = await Expenses.findExpenses()
 
-    //         expect(get.length).toBe(1);
-    //     })
+            expect(get.length).toBe(1);
+        })
 
-    //     it('should return status code 200', async () => {
-    //         const res = await request(server).get('/api/trips');
+        it('should return status code 200', async () => {
+            const res = await request(server).get('/api/expenses');
 
-    //         expect(res.status).toBe(200)
-    //     })
-    // })
+            expect(res.status).toBe(200)
+        })
+    })
 })
