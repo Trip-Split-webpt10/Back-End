@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 
+//Generates the JWT to give the user access to certain routes.
 function generateToken(user) {
 
     const payload = {

@@ -3,20 +3,12 @@ const router = require('express').Router();
 const Trips = require('./trips-model');
 const Users = require('../users/users-model')
 
+// Get Endpoint to get a list of all trips. /api/trips
 router.get('/', (req, res) => {
     Trips.findTrips()
         .then(trips => {
             trips.forEach(trip => {
                 trip.complete = !!trip.complete
-
-                // Trips.findTripExpenses(trip.id)
-                //     .then(expenses => {
-                //         Trips.findTripUsers(trip.id)
-                //          .then(users => {
-                //                 trip = {trip, expenses: expenses, users: users, totalUsers: users.length}
-                //                 console.log(trip)
-                //         })
-                //     })
             })
             res.send(trips)
         })
@@ -28,6 +20,7 @@ router.get('/', (req, res) => {
         })
 })
 
+// Get Endpoint to get a specific trip. /api/trips/:id. Will also retur a list of epxenses and users for the trip
 router.get('/:id', (req, res) => {
     const { id } = req.params
 
@@ -51,6 +44,7 @@ router.get('/:id', (req, res) => {
         })
 })
 
+//Get Endpoint that shows a list of expenses tied to a trip. /api/trips/:id/expenses
 router.get('/:id/expenses', (req, res) => {
     const { id } = req.params
 
@@ -64,6 +58,7 @@ router.get('/:id/expenses', (req, res) => {
         })
 })
 
+//Get Endpoint that shows the list of users tied to a trip. /api/trips/:id/users
 router.get('/:id/users', (req, res) => {
     const { id } = req.params
 
@@ -77,6 +72,7 @@ router.get('/:id/users', (req, res) => {
         })
 })
 
+//Get Endpoint that shows a list of all expenses paid by each user for a trip. /api/trips/users/expenses
 router.get('/:id/users/expenses', (req, res) => {
     const { id } = req.params
 
@@ -90,6 +86,7 @@ router.get('/:id/users/expenses', (req, res) => {
         })
 })
 
+//Post Endpoint that adds a new user to a trip. /api/:id/users
 router.post('/:id/users', (req, res) => {
     const { id } = req.params;
     const { username } = req.body;
@@ -113,6 +110,7 @@ router.post('/:id/users', (req, res) => {
         })
 })
 
+//Post endpoint that adds a new trip to the db. /api/trips
 router.post('/', (req, res) => {
     const data = req.body
 
